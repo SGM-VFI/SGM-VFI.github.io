@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Sparse Global Matching for Video Frame Interpolation with Large Motion">
+  <meta name="keywords" content="Global Matching, Large Motion, VFI">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sparse Global Matching for Video Frame Interpolation with Large Motion</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <!-- TODO: Change a page icon. -->
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Sparse Global Matching for Video Frame Interpolation with Large Motion</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://lcxwiki.com">Chunxu Liu</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://mcg.nju.edu.cn/index.html">Guozhen Zhang</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://zhaorui.xyz/">Rui Zhao</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://wanglimin.github.io/">Limin Wang</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Nanjing University</span>
+            <span class="author-block"><sup>2</sup>SenseTime Research</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="text-container">
+      <p style="font-size:25px;">
+        <b>TL;DR: </b>We introduce <b>Sparse Global Matching Pipeline</b> for VFI task: 
+      </p>
+      <p style="font-size:20px;">
+        0. Estimate intermediate initial flows with local information. <br>
+        1. Identify flaws in the initial flows.<br>
+        2. Estimate flow compensation by <b>Sparese Global Matching</b>. <br>
+        3. Merge the flow compensation with the initial flows. <br>
+        4. Compute the intermediate frame using the flows from 3. and keep refining. 
+      </p>
+      </div> 
+    <br>
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="80%">
+        <source src="./static/videos/website_wide_cropped.mp4"
+                type="video/mp4">
+      </video>
+      <!-- <h2 class="subtitle has-text-centered">
+        Sparse Global Matching can better handle large motion.
+      </h2> -->
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            The challenge posed by large motion plays a crucial role in the task of Video Frame Interpolation (VFI). 
+            Existing methods are often constrained by limited receptive fields, resulting in suboptimal performance 
+            when dealing with scenarios with large motion. In this paper, we introduce a novel pipeline, which 
+            effectively integrating global-level information, to alleviate dilemmas associated with large motion.
+          </p>
+          <p>
+            Specifically, we first estimate a pair of initial intermediate flows using high-resolution feature map 
+            for extracting local details. Then, we incorporate a sparse global matching branch to compensate for 
+            flow estimation, which consists of identifying flaws in initial flows and generating sparse flow 
+            compensation with a global receptive field. Finally, we adaptively merge the initial flow estimation 
+            with global flow compensation, yielding a more accurate intermediate flow. To evaluate the model's 
+            effectiveness in handling large motion, we carefully curated the most challenging subset from 
+            commonly used benchmarks. As a result, our method demonstrates state-of-the-art performance on these 
+            demanding large motion subsets.
+          </p>   
+          
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <!-- 1. Difference Map. -->
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">1. Difference Map Generation</h2>
+          <p>
+            Difference Map is to help us locate the flaws in the initial estimated 
+            intermediate flow.
+          </p>
+          <image id="teaser" width="100%" src="./static/images/diffmap.png" alt="Difference Map."/>
+        </div>
+      </div>
+      <!--/ 1. Difference Map. -->
+
+      <!-- 2. Global Matching. -->
+      <div class="column">
+        <h2 class="title is-3">2. Sparse Global Matching</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              We use sparse global matching to introduce global information into our
+              estimated intermediate flows.
+            </p>
+            <image id="teaser" width="100%" src="./static/images/sparsemat.png" alt="Sparse Global Matching."/>
+          </div>
+          
+        </div>
+      </div>
+      <!-- 2. Global Matching. -->
+    </div>
+
+    <div class="columns is-centered">
+      <!-- 3. Flow Shifting -->
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">3. Flow Shifting </h2>
+          <p>
+            We can only use the flow after shifting it to the correct coordinate.
+          </p>
+          <video id="flowshift" autoplay muted loop playsinline height="75%">
+            <source src="./static/videos/flowshift.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <!--/ 3. Flow Shifting -->
+
+      <!-- 4. Flow Merging -->
+      <div class="column">
+        <h2 class="title is-3">4. Flow Merging</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              The output of sparse global matching may be incorrect, so we merge it 
+              with the initial estimated flows to create accurate flows.
+            </p>
+            <image id="teaser" width="100%" src="./static/images/flowmerge.png" alt="Sparse Global Matching."/>
+          </div>
+          
+        </div>
+      </div>
+      <!-- 4. Flow Merging -->
+    </div>
+
+    <!-- Visualization. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Visualization</h2>
+        <!-- Re-rendering. -->
+        <h3 class="title is-4">Cropped View</h3>
+        <!-- <div class="content has-text-justified">
+          <p>
+            Our method can handle large motion without losing too much local details.
+          </p>
+        </div> -->
+        <div class="content is-max-desktop has-text-centered">
+          <div class="hero-body">
+            <image id="teaser" width="250%" src="./static/images/paper_visual.png" alt="Teaser image."/>
+            <!-- <h4 class="subtitle has-text-centered"> -->
+              Blue frames places a greater emphasis on demonstrating large motion, 
+              while green frames is more inclined to demonstrate the effect on local details.
+            <!-- </h4> -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <h3 class="title is-4">Full Resolution View</h3>
+    <!--/ Visualization. -->
+</div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-full-res-vis">
+          <image id="teaser" width="100%" src="./static/images/fullres1-1.png" alt="Full Resolution Image."/>
+        </div>
+        <div class="item item-full-res-vis">
+          <image id="teaser" width="100%" src="./static/images/fullres2-1.png" alt="Full Resolution Image."/>
+        </div>
+        <div class="item item-full-res-vis">
+          <image id="teaser" width="100%" src="./static/images/fullres3-1.png" alt="Full Resolution Image."/>
+        </div>
+        <div class="item item-full-res-vis">
+          <image id="teaser" width="100%" src="./static/images/fullres4-1.png" alt="Full Resolution Image."/>
+        </div>
+        <div class="item item-full-res-vis">
+          <image id="teaser" width="100%" src="./static/images/fullres5-1.png" alt="Full Resolution Image."/>
+        </div>
+      </div>
+    </div>
+  
+
+    <!-- Concurrent Work. -->
+    <!-- <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Related Links</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            TBA
+          </p>
+      </div>
+    </div> -->
+    <!--/ Concurrent Work. -->
+
+  <!-- </div>
+</section> -->
+
+<!-- BibTex: TBA -->
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section> -->
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website template borrowed from <a
+            href="https://github.com/nerfies/nerfies.github.io">NeRFies</a>. 
+          </p>
+          We sincerely thank the authors for their contribution to the open source society.
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
