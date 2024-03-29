@@ -59,13 +59,14 @@
               <a href="https://zhaorui.xyz/">Rui Zhao</a><sup>2</sup>,
             </span>
             <span class="author-block">
-              <a href="https://wanglimin.github.io/">Limin Wang</a><sup>1</sup>,
+              <a href="https://wanglimin.github.io/">Limin Wang</a><sup>1,3,&#9993;</sup>
             </span>
           </div>
 
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup>1</sup>Nanjing University</span>
             <span class="author-block"><sup>2</sup>SenseTime Research</span>
+            <span class="author-block"><sup>3</sup>Shanghai AI Lab</span>
           </div>
 
           <div class="column has-text-centered">
@@ -93,7 +94,7 @@
               </span> -->
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/"
+                <a href="https://github.com/MCG-NJU/SGM-VFI"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -121,7 +122,7 @@
 
 <section class="hero teaser">
   <div class="container is-max-desktop">
-    <div class="text-container">
+    <!-- <div class="text-container">
       <p style="font-size:25px;">
         <b>TL;DR: </b>We introduce <b>Sparse Global Matching Pipeline</b> for VFI task: 
       </p>
@@ -133,10 +134,10 @@
         4. Compute the intermediate frame using the flows from 3. and keep refining. 
       </p>
       </div> 
-    <br>
+    <br> -->
     <div class="hero-body">
       <video id="teaser" autoplay muted loop playsinline height="80%">
-        <source src="./static/videos/website_wide_cropped.mp4"
+        <source src="./static/videos/website_wide_cropped_lite.mp4"
                 type="video/mp4">
       </video>
       <!-- <h2 class="subtitle has-text-centered">
@@ -166,11 +167,14 @@
             for extracting local details. Then, we incorporate a sparse global matching branch to compensate for 
             flow estimation, which consists of identifying flaws in initial flows and generating sparse flow 
             compensation with a global receptive field. Finally, we adaptively merge the initial flow estimation 
-            with global flow compensation, yielding a more accurate intermediate flow. To evaluate the model's 
+            with global flow compensation, yielding a more accurate intermediate flow. 
+          </p>   
+          <p>
+            To evaluate the model's 
             effectiveness in handling large motion, we carefully curated the most challenging subset from 
             commonly used benchmarks. As a result, our method demonstrates state-of-the-art performance on these 
             demanding large motion subsets.
-          </p>   
+          </p>
           
         </div>
       </div>
